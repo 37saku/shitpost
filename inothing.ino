@@ -19,10 +19,23 @@ void setup() {
   
   // ...existing code...
   
-  void setup() {
+   void setup() {
     pinMode(stepPin, OUTPUT);      // Set step pin as output
     pinMode(dirPin, OUTPUT);       // Set direction pin as output
   
+    // Define hardware Serial pins for ESP8266
+    #define ESP_RX 3  // GPIO3 (RX)
+    #define ESP_TX 1  // GPIO1 (TX)
+    
+    // Initialize hardware Serial for RPi communication
+    Serial.begin(115200);  // Higher baud rate for more reliable communication
+    while (!Serial) {
+      ; // Wait for serial port to connect
+    }
+    
+    Serial.println("++++++++ ESP8266-RPi5 Stepper Controller ++++++++");
+    Serial.println("Ready for commands from RPi5");
+  }
     // Initialize hardware Serial for RPi communication
     Serial.begin(115200);  // Higher baud rate for more reliable communication
     while (!Serial) {
