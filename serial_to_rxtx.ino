@@ -1,26 +1,14 @@
-// For ESP8266 update pin definitions (using NodeMCU pin labels)
-const int dirPin = 5;    // direction control pin for ESP8266
-const int stepPin = 4;   // step control pin for ESP8266
-
-const int moveSteps = 200;    // test steps
-char cmd;
-int data;
-int motorSpeed = 1000;
-
-void setup() {
-  pinMode(stepPin, OUTPUT);      // Set step pin as output
-  pinMode(dirPin, OUTPUT);       // Set direction pin as output
-
-  Serial.begin(9600);
-  Serial.println("++++++++ ESP8266 Single-Stepper Demo ++++++++");
-  Serial.println("Please input motor command:");
-}#include <SoftwareSerial.h>
+#include <SoftwareSerial.h>
 
 // For ESP8266 update pin definitions (using NodeMCU pin labels)
 const int dirPin = 5;    // direction control pin for ESP8266
 const int stepPin = 4;   // step control pin for ESP8266
 const int rxPin = 12;    // RX pin for software serial
 const int txPin = 13;    // TX pin for software serial
+
+char cmd;
+int data;
+int motorSpeed = 1000;
 
 const int moveSteps = 200;    // test steps
 char cmd;
