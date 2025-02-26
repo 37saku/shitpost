@@ -14,7 +14,23 @@ const int moveSteps = 200;    // test steps
 char cmd;
 int data;
 int motorSpeed = 1000;
+#include <SoftwareSerial.h>
 
+// For ESP8266 update pin definitions (using NodeMCU pin labels)
+const int dirPin = 5;    // direction control pin for ESP8266
+const int stepPin = 4;   // step control pin for ESP8266
+const int rxPin = 12;    // RX pin for software serial
+const int txPin = 13;    // TX pin for software serial
+
+const int moveSteps = 200;    // test steps
+// Remove duplicate declarations
+char cmd;
+int data;
+int motorSpeed = 1000;
+
+SoftwareSerial mySerial(rxPin, txPin);  // Create software serial object
+
+// ...rest of the code remains the same...
 SoftwareSerial mySerial(rxPin, txPin);  // Create software serial object
 
 void setup() {
