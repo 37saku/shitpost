@@ -19,7 +19,7 @@ void setup() {
   pinMode(rxPin, INPUT);
   pinMode(txPin, OUTPUT);
 
-  mySerial.begin(9600);  // Initialize software serial
+  mySerial.begin(9600);
   mySerial.println("++++++++ ESP8266 Single-Stepper Demo ++++++++");
   mySerial.println("Please input motor command:");
 }
@@ -39,25 +39,25 @@ void loop() {
 
 void runUsrCmd() {
   switch(cmd) { 
-    case 'x':  // Set motor rotation direction
+    case 'x':
       mySerial.print("Set Rotation To ");
       if (data == 0) {
-        digitalWrite(dirPin, HIGH);  // HIGH means Counter Clockwise
+        digitalWrite(dirPin, HIGH);
         mySerial.println("Counter Clockwise.");
       } else {
-        digitalWrite(dirPin, LOW);   // LOW means Clockwise
+        digitalWrite(dirPin, LOW);
         mySerial.println("Clockwise.");
       }
       break;
-    
-    case 'U': 
+      
+    case 'U':
       mySerial.print("Float Up with steps = ");
       mySerial.println(data);
       digitalWrite(dirPin, HIGH);
       runStepper(motorSpeed, data);
       break;
       
-    case 'D': 
+    case 'D':
       mySerial.print("Float Down with steps = ");
       mySerial.println(data);
       digitalWrite(dirPin, LOW);
