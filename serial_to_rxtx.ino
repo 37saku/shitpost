@@ -62,7 +62,63 @@ void runUsrCmd(){
   switch(cmd){ 
     case 'x':  // Set motor rotation direction
       Serial.print("Set Rotation To ");
-      if (data == 0){
+      if (data == 0){      #include <SoftwareSerial.h>
+      
+      // For ESP8266 update pin definitions (using NodeMCU pin labels)
+      const int dirPin = 5;    // direction control pin for ESP8266
+      const int stepPin = 4;   // step control pin for ESP8266
+      const int rxPin = 12;    // RX pin for software serial
+      const int txPin = 13;    // TX pin for software serial
+      
+      const int moveSteps = 200;    // test steps
+      char cmd;
+      int data;
+      int motorSpeed = 1000;
+      
+      SoftwareSerial mySerial(rxPin, txPin);  // Create software serial object
+      
+      void setup() {
+        pinMode(stepPin, OUTPUT);
+        pinMode(dirPin, OUTPUT);
+        pinMode(rxPin, INPUT);
+        pinMode(txPin, OUTPUT);
+      
+        mySerial.begin(9600);  // Initialize software serial
+        mySerial.println("++++++++ ESP8266 Single-Stepper Demo ++++++++");
+        mySerial.println("Please input motor command:");
+      }
+      
+      void loop() {
+        if (mySerial.available()) {  // Changed from Serial to mySerial
+          cmd = mySerial.read();     // Changed from Serial to mySerial
+          mySerial.print("cmd = ");  // Changed from Serial to mySerial
+          mySerial.print(cmd);
+          mySerial.print(" , ");
+          data = mySerial.parseInt();
+          mySerial.print("data = ");
+          mySerial.println(data);
+          runUsrCmd();
+        }
+      }
+      
+      void runUsrCmd() {
+        switch(cmd) { 
+          case 'x':  // Set motor rotation direction
+            mySerial.print("Set Rotation To ");  // Changed from Serial to mySerial
+            if (data == 0) {
+              digitalWrite(dirPin, HIGH);  // swapped: now HIGH means Counter Clockwise
+              mySerial.println("Counter Clockwise.");
+            } else {
+              digitalWrite(dirPin, LOW);   // LOW means Clockwise
+              mySerial.println("Clockwise.");
+            }
+            break;
+          
+          // ... rest of the switch cases remain the same but using mySerial instead of Serial ...
+        }
+      }
+      
+      // ... rest of the code remains the same but using mySerial instead of Serial ...
         digitalWrite(dirPin, HIGH);  // swapped: now HIGH means Counter Clockwise
         Serial.println("Counter Clockwise.");
       } else {
