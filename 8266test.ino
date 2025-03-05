@@ -11,16 +11,25 @@ void setup() {
   while (!Serial) {
     ; // Wait for the serial port to connect
   }
+  while (!mySerial) {
+    ; // Wait for the serial port to connect
+  }
   Serial.println("ESP8266 Software Serial Echo Ready");
+  mySerial.println("ESP8266 Software Serial Echo Ready");
 }
 
 void loop() {
   if (mySerial.available() > 0) {
     // Read the incoming byte
-    String line = mySerial.readStringUntil('\n');
+    String line = mySerial.readString();
     Serial.print("Received: ");
     Serial.println(line);  // Print the received line to the Serial Monitor
     mySerial.print("Received: ");
     mySerial.println(line); // Send the response back via Software Serial
+  }
+  if(Serial.available()){
+    String line1 = Serial.readString();
+    Serial.print("Received: ");
+    Serial.println(line1);
   }
 }
