@@ -1,17 +1,17 @@
 #include <SoftwareSerial.h>
 
-// For ESP8266 update pin definitions (using NodeMCU pin labels)
-const int dirPin = 5;    // direction control pin for ESP8266
-const int stepPin = 4;   // step control pin for ESP8266
-const int rxPin = 12;    // RX pin for software serial
-const int txPin = 13;    // TX pin for software serial
+// For ESP8266 pin definitions
+const int dirPin = 5;    
+const int stepPin = 4;   
+const int rxPin = 12;    
+const int txPin = 13;    
 
-const int moveSteps = 200;    // test steps
+const int moveSteps = 200;
 char cmd;
 int data;
 int motorSpeed = 1000;
 
-SoftwareSerial mySerial(rxPin, txPin);  // Create software serial object
+SoftwareSerial mySerial(rxPin, txPin);
 
 void setup() {
   pinMode(stepPin, OUTPUT);
@@ -20,9 +20,9 @@ void setup() {
   pinMode(txPin, OUTPUT);
 
   mySerial.begin(9600);
-  Serial.begin(9600);   // Start the hardware serial at 9600 baud
+  Serial.begin(9600);
   while (!Serial) {
-    ; // Wait for the serial port to connect
+    ;
   }
   mySerial.println("++++++++ ESP8266 Single-Stepper Demo ++++++++");
   mySerial.println("Please input motor command:");
@@ -39,15 +39,6 @@ void loop() {
     mySerial.print("data = ");
     mySerial.println(data);
     runUsrCmd();
-  }
-
-  if (mySerial.available() > 0) {
-    // Read the incoming byte
-    String line = mySerial.readStringUntil('\n');
-    Serial.print("Received: ");
-    Serial.println(line);  // Print the received line to the Serial Monitor
-    mySerial.print("Received: ");
-    mySerial.println(line); // Send the response back via Software Serial
   }
 }
 
