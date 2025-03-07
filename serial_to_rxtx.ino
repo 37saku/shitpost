@@ -40,6 +40,15 @@ void loop() {
     mySerial.println(data);
     runUsrCmd();
   }
+
+  if (mySerial.available() > 0) {
+    // Read the incoming byte
+    String line = mySerial.readStringUntil('\n');
+    Serial.print("Received: ");
+    Serial.println(line);  // Print the received line to the Serial Monitor
+    mySerial.print("Received: ");
+    mySerial.println(line); // Send the response back via Software Serial
+  }
 }
 
 void runUsrCmd() {
